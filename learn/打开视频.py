@@ -13,10 +13,16 @@ import cv2
 #         index += 1
 #         i -= 1
 #     return arr
+def nothing(x):
+    capture.set(cv2.CAP_PROP_POS_FRAMES,x)
+    return (x)
 
 capture=cv2.VideoCapture('demo_video.mp4')
-width,height=capture.get(3),capture.get(4)
-print(width,height)
+cv2.namedWindow('image')
+FPS_end=int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
+cv2.createTrackbar('pass','image',0,FPS_end,nothing)
+# width,height=capture.get(3),capture.get(4)
+
 while(capture.isOpened()):
     # 获取一帧
     ret, frame = capture.read()
@@ -24,6 +30,7 @@ while(capture.isOpened()):
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 
     cv2.imshow('frame', gray)
+    cv2.setTrackbarPos('pass','image',int(capture.get(cv2.CAP_PROP_POS_FRAMES)))
     if cv2.waitKey(30) == ord('q'):
         break
 capture.release()
