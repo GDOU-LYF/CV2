@@ -32,4 +32,5 @@ while(capture.isOpened()):
     cv2.setTrackbarPos('pass','image',int(capture.get(cv2.CAP_PROP_POS_FRAMES)/FPS_end*100))
     if cv2.waitKey(30) == ord('q'):
         break
+cv2.destroyWindow('image') #销毁指定窗口
 capture.release()
