@@ -14,13 +14,13 @@ import cv2
 #         i -= 1
 #     return arr
 def nothing(x):
-    capture.set(cv2.CAP_PROP_POS_FRAMES,x)
+    capture.set(cv2.CAP_PROP_POS_FRAMES,FPS_end*x*0.01)
     return (x)
 
 capture=cv2.VideoCapture('demo_video.mp4')
 cv2.namedWindow('image')
 FPS_end=int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
-cv2.createTrackbar('pass','image',0,FPS_end,nothing)
+cv2.createTrackbar('pass','image',0,100,nothing)
 # width,height=capture.get(3),capture.get(4)
 
 while(capture.isOpened()):
@@ -28,9 +28,8 @@ while(capture.isOpened()):
     ret, frame = capture.read()
     # 将这帧转换为灰度图
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-
     cv2.imshow('frame', gray)
-    cv2.setTrackbarPos('pass','image',int(capture.get(cv2.CAP_PROP_POS_FRAMES)))
+    cv2.setTrackbarPos('pass','image',int(capture.get(cv2.CAP_PROP_POS_FRAMES)/FPS_end*100))
     if cv2.waitKey(30) == ord('q'):
         break
 capture.release()
