@@ -28,7 +28,7 @@ while(capture.isOpened()):
     ret, frame = capture.read()
     # 将这帧转换为灰度图
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-    cv2.imshow('frame', gray)
+    cv2.imshow('image', gray)
     cv2.setTrackbarPos('pass','image',int(capture.get(cv2.CAP_PROP_POS_FRAMES)/FPS_end*100))
     if cv2.waitKey(30) == ord('q'):
         break
